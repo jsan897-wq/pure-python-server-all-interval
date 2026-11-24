@@ -1,0 +1,12 @@
+website open 
+
+https://pure-python-server.onrender.com/
+
+it is public
+
+
+
+
+github library created with this folder 
+deployeed in the render .com with fre tier server 
+

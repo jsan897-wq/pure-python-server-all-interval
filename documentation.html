@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Python Market Server - Documentation & Guide</title>
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #1557b0;
+      --primary-light: #e8f0fe;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #202124;
+      --text-muted: #5f6368;
+      --border: #dadce0;
+      --code-bg: #202124;
+      --code-text: #8ab4f8;
+      --success: #1e8e3e;
+      --success-bg: #e6f4ea;
+      --warning: #f9ab00;
+      --warning-bg: #fef7e0;
+      --radius: 10px;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-title h1 {
+      font-size: 20px;
+      margin: 0;
+      font-weight: 700;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--success-bg);
+      color: var(--success);
+    }
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    .main-wrapper {
+      max-width: 1000px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+    }
+    h3 {
+      font-size: 16px;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      color: #3c4043;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: #3c4043;
+    }
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 16px;
+      padding-left: 24px;
+      color: #3c4043;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      background: #f1f3f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #c5221f;
+    }
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 12px 0 18px 0;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 14px;
+    }
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .feature-box {
+      background: #f8f9fa;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .feature-box h4 {
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feature-box p {
+      font-size: 13px;
+      margin: 0;
+      color: var(--text-muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    th {
+      background: #f1f3f4;
+      font-weight: 600;
+    }
+    .callout {
+      border-left: 4px solid var(--primary);
+      background: var(--primary-light);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .btn-demo:hover {
+      background: var(--primary-dark);
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>🐍 Pure Python Market Server</h1>
+      <span class="badge">100% Linux Native</span>
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#features">What It Does</a>
+      <a href="#how-to-run">How to Run Locally</a>
+      <a href="#cloud-deploy">Deploy Online (Free)</a>
+      <a href="#api">API Reference</a>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+
+    <!-- 1. OVERVIEW -->
+    <div id="overview" class="card">
+      <h2>📖 1. What is Pure Python Market Server?</h2>
+      <p>
+        The <strong>Pure Python Market Server</strong> is a lightweight, zero-dependency financial analysis and report generation engine.
+        It replaces the legacy 50 MB Microsoft Excel macro workbook (<code>7vp bn11 -one - Copy.xlsm</code>) and Windows COM (<code>win32com</code>) with a clean, modern Python application.
+      </p>
+
+      <div class="callout">
+        <strong>💡 Key Advantage:</strong>
+        Because it contains <strong>zero Windows COM dependencies</strong> and requires <strong>no desktop Microsoft Office</strong>,
+        this server can run on <strong>any free Linux cloud provider (Render.com, Google Cloud Run, Railway)</strong> 24/7 without needing your own personal computer!
+      </div>
+
+      <div class="grid-2">
+        <div class="feature-box">
+          <h4>❌ Legacy Excel Macro System</h4>
+          <p>Requires Windows OS, desktop Microsoft Excel, 50MB macro workbook, win32com, and an active physical computer running at all times.</p>
+        </div>
+        <div class="feature-box">
+          <h4>✅ Pure Python Server</h4>
+          <p>Runs on Linux, Windows, or macOS. Uses <code>yfinance</code>, <code>pandas</code>, and <code>matplotlib</code>. Generates PDF reports in ~2 seconds.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. WHAT IT DOES -->
+    <div id="features" class="card">
+      <h2>⚙️ 2. What It Does (Core Pipeline)</h2>
+      <p>Whenever you select a stock, choose your desired time interval and lookback period, and trigger a run, the server performs the following automated steps:</p>
+
+      <ol>
+        <li>
+          <strong>Multi-Timeframe Market Data Ingestion:</strong>
+          Supports customizable candle intervals and historical lookback periods for multi-timeframe analysis and predictions:
+          <ul>
+            <li><strong>Intervals:</strong> <code>15m</code> (15 Minutes), <code>30m</code> (30 Minutes - Default), <code>1h</code> (1 Hour), <code>1d</code> (Daily), <code>1wk</code> (Weekly), <code>1mo</code> (Monthly).</li>
+            <li><strong>Lookback Periods:</strong> <code>5d</code> (5 Days), <code>1mo</code> (1 Month), <code>3mo</code> (3 Months), <code>6mo</code> (6 Months), <code>1y</code> (1 Year), <code>2y</code> (2 Years).</li>
+            <li><strong>Smart Handling:</strong> For intraday intervals (15m, 30m, 1h), Yahoo Finance provides up to 60 days of historical data; the engine automatically clamps or fetches the maximum available intraday window (~60 days) to prevent empty data errors. For daily/weekly/monthly intervals, full multi-year history (6mo, 1y, 2y) is utilized.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Computes Technical Indicators:</strong>
+          Calculates 20-period Simple Moving Average (SMA), 50-period Exponential Moving Average (EMA), and 14-period Relative Strength Index (RSI).
+        </li>
+        <li>
+          <strong>Calculates 16 Sheet10 Price Levels:</strong>
+          Recreates the mathematical matrix from Sheet10 (c11, b11, b12, b11 inv, b12 trans, etc.) across the chosen timeframe and computes their spread metrics <code>D(n)</code>.
+        </li>
+        <li>
+          <strong>Generates a High-Resolution 3-Page Vector PDF Report:</strong>
+          Produces a complete multi-page document matching the Sheet10 layout with dynamic date/time axis formatting:
+          <ul>
+            <li><strong>Page 1:</strong> OHLC price action with dynamic interval/period titles, moving averages, and 60-point comparison cycle lines (Chart 11 emulation).</li>
+            <li><strong>Page 2:</strong> Formatted 16 calculation price levels table with ranks, prices, and spread values.</li>
+            <li><strong>Page 3:</strong> Trading volume distribution bars and 14-period RSI oscillator chart scaled to the selected timeframe.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <!-- 3. HOW TO RUN LOCALLY -->
+    <div id="how-to-run" class="card">
+      <h2>💻 3. How to Run Locally</h2>
+      <p>You can run and test this server on your Windows PC with a single click:</p>
+
+      <h3>Method A: 1-Click Batch File (Easiest)</h3>
+      <p>In the <code>pure_python_server</code> folder, double-click:</p>
+      <pre>run_local_pure_python.bat</pre>
+      <p>This will start the local server on <strong>http://localhost:8080</strong>.</p>
+
+      <h3>Method B: Using Python Command Line</h3>
+      <pre>cd "pure_python_server"
+pip install -r requirements.txt
+python server.py</pre>
+
+      <p>Then open your web browser and go to:</p>
+      <p><a href="http://localhost:8080" target="_blank" class="btn-demo">🚀 Open Local Dashboard (http://localhost:8080)</a></p>
+    </div>
+
+    <!-- 4. CLOUD DEPLOYMENT (NO PHYSICAL PC) -->
+    <div id="cloud-deploy" class="card">
+      <h2>☁️ 4. How to Deploy Online (Free, 24/7, No Physical PC)</h2>
+      <p>Because this code is 100% Linux native, you can deploy it to free cloud hosting platforms so it stays online 24/7 without needing your PC:</p>
+
+      <h3>Option 1: Deploy to Render.com (100% Free Web Service)</h3>
+      <ol>
+        <li>Upload or push the <code>pure_python_server</code> folder to your GitHub account.</li>
+        <li>Log in to <a href="https://render.com" target="_blank">Render.com</a> and click <strong>New +</strong> ➔ <strong>Web Service</strong>.</li>
+        <li>Connect your GitHub repository.</li>
+        <li>Configure the service:
+          <ul>
+            <li><strong>Runtime:</strong> Python 3</li>
+            <li><strong>Build Command:</strong> <code>pip install -r requirements.txt</code></li>
+            <li><strong>Start Command:</strong> <code>python server.py</code></li>
+            <li><strong>Instance Type:</strong> Free ($0 / month)</li>
+          </ul>
+        </li>
+        <li>Click <strong>Deploy Web Service</strong>.</li>
+        <li>Render will provide a live HTTPS URL (e.g. <code>https://my-stock-report.onrender.com</code>). Anyone can access it from their phone or laptop anytime!</li>
+      </ol>
+
+      <h3>Option 2: Deploy to Google Cloud Run (Free Tier)</h3>
+      <p>Deploy using the included <code>Dockerfile</code>:</p>
+      <pre>cd pure_python_server
+gcloud run deploy pure-market-server --source . --allow-unauthenticated</pre>
+
+      <h3>Option 3: Run with Docker</h3>
+      <pre>docker build -t pure-market-server .
+docker run -p 8080:8080 pure-market-server</pre>
+    </div>
+
+    <!-- 5. API REFERENCE -->
+    <div id="api" class="card">
+      <h2>🔌 5. REST API Reference</h2>
+      <p>You can also integrate this server into other software, apps, or scripts via simple HTTP API endpoints:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Endpoint</th>
+            <th>Method</th>
+            <th>Description</th>
+            <th>Example Payload / Response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>/</code></td>
+            <td><code>GET</code></td>
+            <td>Serves the web dashboard interface</td>
+            <td>HTML Page</td>
+          </tr>
+          <tr>
+            <td><code>/api/generate</code></td>
+            <td><code>POST</code></td>
+            <td>Fetches candles for the specified interval/period and generates the 3-page PDF report</td>
+            <td>
+              Payload: <code>{ "stock": "RELIANCE.NS", "interval": "1d", "period": "1y" }</code><br>
+              Response: <code>{ "success": true, "stock": "RELIANCE.NS", "interval": "1d", "period": "1y", "candles": 247, "size": 68481, "duration": 2.1 }</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>/api/download</code></td>
+            <td><code>GET</code></td>
+            <td>Downloads or streams the latest generated PDF</td>
+            <td><code>application/pdf</code> binary stream</td>
+          </tr>
+          <tr>
+            <td><code>/health</code></td>
+            <td><code>GET</code></td>
+            <td>Health check endpoint for cloud uptime monitoring</td>
+            <td><code>{ "status": "healthy" }</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6. FILE STRUCTURE -->
+    <div class="card">
+      <h2>📂 6. File Structure Reference</h2>
+      <pre>pure_python_server/
+├── report_engine.py           # Core computation & 3-page PDF generator
+├── server.py                  # Flask web dashboard & REST API server
+├── documentation.html         # This complete guide & documentation
+├── Dockerfile                 # Linux container for Render / Cloud Run
+├── requirements.txt           # Python dependencies (yfinance, pandas, matplotlib)
+└── run_local_pure_python.bat  # 1-Click local startup batch file</pre>
+    </div>
+
+  </div>
+
+  <footer>
+    Pure Python Market Server &bull; Automated 30-Minute Financial Reporting Engine &bull; Zero Windows / Zero Excel Required
+  </footer>
+
+</body>
+</html>
